@@ -5,42 +5,137 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Para ti ❤️</title>
-    <link rel="stylesheet" href="css/styles.css" />
+
+    <link rel="stylesheet" href="css/styles.css?v=1" />
 </head>
 
 <body>
-    <main class="card">
-        <h1>Para mi persona favorita Karla❤️</h1>
-        <p class="subtitle">Feliz San Valentín</p>
+    <!-- Fondo animado -->
+    <div class="bg">
+        <div class="grain"></div>
+        <canvas id="hearts"></canvas>
+    </div>
 
-        <section class="block">
-            <h2>Un mensaje</h2>
-            <p id="msg">Tengo algo que decirte…</p>
-            <button class="btn" id="btnMsg">Pulsa aquí</button>
-        </section>
+    <header class="topbar">
+        <div class="badge">❤️ San Valentín</div>
+        <button id="toggleTheme" class="iconBtn" aria-label="Cambiar tema" title="Cambiar tema">
+            🌙
+        </button>
+    </header>
 
-        <section class="block">
-            <h2>Nuestros recuerdos</h2>
-            <div class="gallery">
-                <button class="btn small" id="prev">←</button>
-                <img id="photo" src="assets/img/01.jpg" alt="foto" />
-                <button class="btn small" id="next">→</button>
+    <main class="wrap">
+        <!-- HERO -->
+        <section class="card hero reveal">
+            <p class="kicker">Para mi persona favorita</p>
+            <h1 class="title">
+                <span class="shine">Feliz San Valentín</span> 💘
+            </h1>
+            <p class="subtitle">
+                He hecho esta página para decirte algo que a veces no digo suficiente:
+                <strong>me encanta estar contigo</strong>.
+            </p>
+
+            <div class="heroRow">
+                <button class="btn primary" id="btnMsg">Dame un mensaje bonito</button>
+                <button class="btn ghost" id="btnConfetti">Sorpresa ✨</button>
             </div>
-            <p id="caption" class="caption">Nuestro primer recuerdo ❤️</p>
+
+            <p id="msg" class="message" aria-live="polite">Pulsa el botón y verás magia ✨</p>
+
+            <!-- Cuenta atrás (opcional) -->
+            <div class="countdown" id="countdown" hidden>
+                <div class="cdItem"><span id="cdDays">0</span><small>días</small></div>
+                <div class="cdItem"><span id="cdHours">0</span><small>horas</small></div>
+                <div class="cdItem"><span id="cdMins">0</span><small>min</small></div>
+                <div class="cdItem"><span id="cdSecs">0</span><small>seg</small></div>
+            </div>
+
+            <div class="hint">Tip: en iPhone puedes deslizar en la galería 📱</div>
         </section>
 
-        <!-- Música opcional -->
-        <!--
-    <section class="block">
-      <h2>Nuestra canción</h2>
-      <audio controls src="assets/audio/cancion.mp3"></audio>
-    </section>
-    -->
+        <!-- CARTAS: razones -->
+        <section class="card reveal">
+            <div class="sectionHead">
+                <h2>Unas cuantas razones</h2>
+                <p>Porque contigo, lo normal se vuelve especial.</p>
+            </div>
 
-        <footer>Hecho con ❤️ por Antonio</footer>
+            <div class="chips" id="chips"></div>
+
+            <div class="grid" id="reasonsGrid"></div>
+        </section>
+
+        <!-- GALERÍA -->
+        <section class="card reveal">
+            <div class="sectionHead">
+                <h2>Nuestros recuerdos</h2>
+                <p>Pequeños momentos que guardo como tesoros.</p>
+            </div>
+
+            <div class="gallery" id="gallery">
+                <button class="iconBtn nav" id="prev" aria-label="Anterior">←</button>
+
+                <figure class="frame">
+                    <img id="photo" src="assets/img/01.jpg" alt="Foto" />
+                    <figcaption>
+                        <div id="caption" class="caption">Nuestro primer recuerdo ❤️</div>
+                        <div class="dots" id="dots"></div>
+                    </figcaption>
+                </figure>
+
+                <button class="iconBtn nav" id="next" aria-label="Siguiente">→</button>
+            </div>
+        </section>
+
+        <!-- SECRETO -->
+        <section class="card reveal">
+            <div class="sectionHead">
+                <h2>Un mensajito secreto 🔒</h2>
+                <p>Solo para ti (pista: una palabra que solo nosotros entendemos).</p>
+            </div>
+
+            <div class="lockRow">
+                <input id="keyInput" class="input" placeholder="Escribe la palabra clave..." autocomplete="off" />
+                <button id="unlockBtn" class="btn primary">Desbloquear</button>
+            </div>
+
+            <div id="secretBox" class="secretBox" hidden>
+                <h3>💖 Te lo digo claro:</h3>
+                <p id="secretText">
+                    Me haces feliz. Gracias por ser tú. Y si alguna vez lo dudas: siempre estoy contigo.
+                </p>
+            </div>
+
+            <div class="mini">
+                (Si no quieres contraseña, dime y lo dejamos como “botón revelar” 😉)
+            </div>
+        </section>
+
+        <!-- MÚSICA (opcional) -->
+        <section class="card reveal">
+            <div class="sectionHead">
+                <h2>Nuestra canción 🎶</h2>
+                <p>Opcional: puedes poner un MP3 en <code>assets/audio/</code> y activarlo.</p>
+            </div>
+
+            <div class="musicRow">
+                <button class="btn ghost" id="musicBtn">Reproducir / Pausar</button>
+                <span id="musicState" class="mini">Desactivado</span>
+            </div>
+
+            <audio id="audio" src="assets/audio/cancion.mp3" preload="auto"></audio>
+        </section>
+
+        <!-- FIRMA -->
+        <section class="card footerCard reveal">
+            <p class="final">
+                Si tuviera que elegir un lugar seguro, sería <strong>a tu lado</strong>.
+            </p>
+            <p class="mini">Hecho con ❤️ por Antonio</p>
+        </section>
     </main>
 
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=1"></script>
 </body>
 
 </html>
