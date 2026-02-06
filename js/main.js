@@ -11,29 +11,31 @@ const CONFIG = {
 
     // Mensaje que aparece al desbloquear (puedes escribir algo largo y bonito)
     secretText:
-        "Me haces feliz. Gracias por ser tú. Y si alguna vez lo dudas: siempre estoy contigo.",
+        "Me haces feliz, mi Chiquitilla. Gracias por ser tú. Y si alguna vez lo dudas: siempre estoy contigo, Reina.",
 
     // Fotos (cambia nombres y textos; mete tus fotos en assets/img/)
     photos: [
         { src: "assets/img/01.jpg", caption: "Nuestro primer recuerdo ❤️" },
         { src: "assets/img/02.jpg", caption: "Ese día que no se olvida ✨" },
-        { src: "assets/img/03.jpg", caption: "Contigo todo es mejor" }
+        { src: "assets/img/03.jpg", caption: "Contigo todo es mejor, Karla" }
     ],
 
     // Tarjetas de razones (puedes poner 6-12 y queda genial)
     reasons: [
-        { tag: "Tú", title: "Eres mi calma", text: "Contigo todo se siente más fácil." },
-        { tag: "Risas", title: "Me haces reír", text: "Incluso cuando el día no acompaña." },
-        { tag: "Casa", title: "Eres hogar", text: "Donde estás tú, estoy bien." },
+        { tag: "Tú", title: "Eres mi calma", text: "Karla, contigo todo se siente más fácil." },
+        { tag: "Risas", title: "Me haces reír", text: "Mi Chiquitilla, incluso cuando el día no acompaña." },
+        { tag: "Casa", title: "Eres hogar", text: "Donde estás tú, Reina, estoy bien." },
         { tag: "Detalles", title: "Tienes magia", text: "En lo pequeño, en lo grande, en todo." },
         { tag: "Nosotros", title: "Me encanta ser nosotros", text: "Compartir la vida contigo es mi plan favorito." },
         { tag: "Siempre", title: "Te elijo", text: "Hoy, mañana y cada día." }
     ],
 
     messages: [
+        "Mi Chiquitilla, eres mi lugar favorito.",
+        "Reina, contigo todo es mejor.",
+        "Karla, gracias por existir 💘",
         "Te elegiría en todas las vidas.",
         "Eres mi plan favorito.",
-        "Gracias por existir 💘",
         "Contigo, todo encaja.",
         "Me gustas en calma y en caos.",
         "Eres mi suerte."
@@ -250,7 +252,6 @@ setTheme(localStorage.getItem("sv_theme") || "light");
 let audioEnabled = false;
 
 musicBtn.addEventListener("click", async () => {
-    // Si no existe el archivo, puede fallar. No pasa nada: lo marcamos como desactivado.
     try {
         if (!audioEnabled) {
             await audio.play();
@@ -312,7 +313,7 @@ const obs = new IntersectionObserver((entries) => {
 document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
 
 // ======================
-// Canvas corazones flotando
+// Canvas corazones flotando (ROJOS)
 // ======================
 const canvas = document.getElementById("hearts");
 const ctx = canvas.getContext("2d");
@@ -358,12 +359,13 @@ function drawHeart(x, y, size, rot, alpha) {
     ctx.bezierCurveTo(s, -s * 0.2, 0, -s * 0.2, 0, s * 0.35);
     ctx.closePath();
 
-    // Relleno con degradado
+    // Rojo (degradado rojo-rojo)
     const g = ctx.createLinearGradient(-s, -s, s, s);
-    g.addColorStop(0, "rgba(255,59,122,1)");
-    g.addColorStop(1, "rgba(124,58,237,1)");
+    g.addColorStop(0, "rgba(220, 38, 38, 1)");
+    g.addColorStop(1, "rgba(248, 113, 113, 1)");
     ctx.fillStyle = g;
     ctx.fill();
+
     ctx.restore();
 }
 
