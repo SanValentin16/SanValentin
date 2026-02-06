@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Para ti ❤️</title>
 
-    <link rel="stylesheet" href="css/styles.css?v=2" />
+    <link rel="stylesheet" href="css/styles.css?v=3" />
 </head>
 
 <body>
@@ -23,7 +23,26 @@
         </button>
     </header>
 
-    <main class="wrap">
+    <!-- BLOQUEO -->
+    <div class="lockWrap" id="lockWrap">
+        <section class="card lockCard reveal visible">
+            <p class="kicker">Solo para mi Chiquitilla 💘</p>
+            <h1 class="title"><span class="shine">Desbloquea la sorpresa</span></h1>
+            <p class="subtitle">
+                Karla, escribe la palabra clave (pista: una palabra que solo nosotros entendemos 😉).
+            </p>
+
+            <div class="lockRow">
+                <input id="keyInput" class="input" placeholder="Palabra clave..." autocomplete="off" />
+                <button id="unlockBtn" class="btn primary">Desbloquear</button>
+            </div>
+
+            <p id="lockMsg" class="mini">Prometo que merece la pena ❤️</p>
+        </section>
+    </div>
+
+    <!-- CONTENIDO (oculto hasta desbloquear) -->
+    <main class="wrap" id="content" hidden>
         <!-- HERO -->
         <section class="card hero reveal">
             <p class="kicker">Para mi Chiquitilla ❤️</p>
@@ -42,12 +61,17 @@
 
             <p id="msg" class="message" aria-live="polite">Pulsa el botón y verás magia ✨</p>
 
-            <!-- Cuenta atrás (opcional) -->
-            <div class="countdown" id="countdown" hidden>
+            <!-- Contador tiempo juntos -->
+            <div class="sectionHead" style="margin-top:14px">
+                <h2>Tiempo siendo nosotros</h2>
+                <p>Desde el 14/11/2025 a las 23:14 💞</p>
+            </div>
+
+            <div class="countdown" id="countdown">
                 <div class="cdItem"><span id="cdDays">0</span><small>días</small></div>
-                <div class="cdItem"><span id="cdHours">0</span><small>horas</small></div>
-                <div class="cdItem"><span id="cdMins">0</span><small>min</small></div>
-                <div class="cdItem"><span id="cdSecs">0</span><small>seg</small></div>
+                <div class="cdItem"><span id="cdHours">00</span><small>horas</small></div>
+                <div class="cdItem"><span id="cdMins">00</span><small>min</small></div>
+                <div class="cdItem"><span id="cdSecs">00</span><small>seg</small></div>
             </div>
 
             <div class="hint">Tip: en iPhone puedes deslizar en la galería 📱</div>
@@ -61,7 +85,6 @@
             </div>
 
             <div class="chips" id="chips"></div>
-
             <div class="grid" id="reasonsGrid"></div>
         </section>
 
@@ -87,35 +110,11 @@
             </div>
         </section>
 
-        <!-- SECRETO -->
-        <section class="card reveal">
-            <div class="sectionHead">
-                <h2>Un mensajito secreto 🔒</h2>
-                <p>Solo para ti (pista: una palabra que solo nosotros entendemos).</p>
-            </div>
-
-            <div class="lockRow">
-                <input id="keyInput" class="input" placeholder="Escribe la palabra clave..." autocomplete="off" />
-                <button id="unlockBtn" class="btn primary">Desbloquear</button>
-            </div>
-
-            <div id="secretBox" class="secretBox" hidden>
-                <h3>💖 Te lo digo claro:</h3>
-                <p id="secretText">
-                    Me haces feliz. Gracias por ser tú. Y si alguna vez lo dudas: siempre estoy contigo.
-                </p>
-            </div>
-
-            <div class="mini">
-                (Si no quieres contraseña, dime y lo dejamos como “botón revelar” 😉)
-            </div>
-        </section>
-
         <!-- MÚSICA (opcional) -->
         <section class="card reveal">
             <div class="sectionHead">
                 <h2>Nuestra canción 🎶</h2>
-                <p>Opcional: puedes poner un MP3 en <code>assets/audio/</code> y activarlo.</p>
+                <p>Opcional: pon un MP3 en <code>assets/audio/</code> llamado <code>cancion.mp3</code>.</p>
             </div>
 
             <div class="musicRow">
@@ -131,11 +130,11 @@
             <p class="final">
                 Si tuviera que elegir un lugar seguro, sería <strong>a tu lado</strong>.
             </p>
-            <p class="mini">Hecho con ❤️ por Antonio para Karla (mi Chiquitilla)</p>
+            <p class="mini">Hecho con amor por tu osito ❤️</p>
         </section>
     </main>
 
-    <script src="js/main.js?v=2"></script>
+    <script src="js/main.js?v=3"></script>
 </body>
 
 </html>

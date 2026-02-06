@@ -504,3 +504,22 @@ body {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* ======= Bloqueo de página ======= */
+.lockWrap {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    z-index: 20;
+}
+
+.lockCard {
+    width: min(720px, 100%);
+}
+
+body.unlocked .lockWrap {
+    display: none;
+}

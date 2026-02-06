@@ -2,25 +2,19 @@
 // Personaliza aquí
 // ======================
 const CONFIG = {
-    // Si quieres cuenta atrás: pon una fecha futura (hora local). Si no, déjalo en null.
-    // Ejemplo: "2026-02-14T00:00:00"
-    countdownTo: null,
-
-    // Palabra clave del secreto (minúsculas). Cámbiala por vuestro inside joke.
+    // Palabra clave para desbloquear TODA la página (minúsculas)
     secretKey: "amor",
 
-    // Mensaje que aparece al desbloquear (puedes escribir algo largo y bonito)
-    secretText:
-        "Me haces feliz, mi Chiquitilla. Gracias por ser tú. Y si alguna vez lo dudas: siempre estoy contigo, Reina.",
+    // Aniversario: 14/11/2025 23:14 (España peninsular)
+    // Usamos formato ISO con offset +01:00 (CET) para que sea exacto.
+    anniversaryISO: "2025-11-14T23:14:00+01:00",
 
-    // Fotos (cambia nombres y textos; mete tus fotos en assets/img/)
     photos: [
         { src: "assets/img/01.jpg", caption: "Nuestro primer recuerdo ❤️" },
         { src: "assets/img/02.jpg", caption: "Ese día que no se olvida ✨" },
         { src: "assets/img/03.jpg", caption: "Contigo todo es mejor, Karla" }
     ],
 
-    // Tarjetas de razones (puedes poner 6-12 y queda genial)
     reasons: [
         { tag: "Tú", title: "Eres mi calma", text: "Karla, contigo todo se siente más fácil." },
         { tag: "Risas", title: "Me haces reír", text: "Mi Chiquitilla, incluso cuando el día no acompaña." },
@@ -43,8 +37,17 @@ const CONFIG = {
 };
 
 // ======================
-// Elementos
+// Elementos (bloqueo)
+/// ======================
+const lockWrap = document.getElementById("lockWrap");
+const lockMsg = document.getElementById("lockMsg");
+const keyInput = document.getElementById("keyInput");
+const unlockBtn = document.getElementById("unlockBtn");
+const content = document.getElementById("content");
+
 // ======================
+// Elementos (contenido)
+/// ======================
 const msgEl = document.getElementById("msg");
 const btnMsg = document.getElementById("btnMsg");
 const btnConfetti = document.getElementById("btnConfetti");
@@ -59,14 +62,8 @@ const galleryEl = document.getElementById("gallery");
 const reasonsGrid = document.getElementById("reasonsGrid");
 const chipsEl = document.getElementById("chips");
 
-const keyInput = document.getElementById("keyInput");
-const unlockBtn = document.getElementById("unlockBtn");
-const secretBox = document.getElementById("secretBox");
-const secretTextEl = document.getElementById("secretText");
-
 const toggleThemeBtn = document.getElementById("toggleTheme");
 
-const cdWrap = document.getElementById("countdown");
 const cdDays = document.getElementById("cdDays");
 const cdHours = document.getElementById("cdHours");
 const cdMins = document.getElementById("cdMins");
@@ -77,18 +74,80 @@ const musicBtn = document.getElementById("musicBtn");
 const musicState = document.getElementById("musicState");
 
 // ======================
-// Mensajes aleatorios
+// Desbloqueo de la página
 // ======================
-btnMsg.addEventListener("click", () => {
+function unlockPage() {
+    document.body.classList.add("unlocked");
+    lockWrap.style.display = "none";
+    content.hidden = false;
+
+    localStorage.setItem("sv_unlocked", "1");
+    burstConfetti();
+    // Activar reveal
+    document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+}
+
+function tryUnlock() {
+    const k = (keyInput.value || "").trim().toLowerCase();
+    if (!k) return wiggle(keyInput);
+
+    if (k === CONFIG.secretKey.toLowerCase()) {
+        lockMsg.textContent = "Correcto 💘";
+        unlockPage();
+    } else {
+        lockMsg.textContent = "Esa no es… prueba otra 😏";
+        wiggle(keyInput);
+    }
+}
+
+unlockBtn.addEventListener("click", tryUnlock);
+keyInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") tryUnlock();
+});
+
+// Si ya se desbloqueó antes en el mismo móvil/navegador
+if (localStorage.getItem("sv_unlocked") === "1") {
+    unlockPage();
+}
+
+// ======================
+// Mensajes aleatorios (ya dentro)
+// ======================
+btnMsg?.addEventListener("click", () => {
     const txt = CONFIG.messages[Math.floor(Math.random() * CONFIG.messages.length)];
     msgEl.textContent = txt;
     pulse(msgEl);
 });
 
+btnConfetti?.addEventListener("click", () => burstConfetti());
+
 // ======================
-// Confetti simple (sin librerías)
+// Contador: tiempo desde aniversario hasta ahora
 // ======================
-btnConfetti.addEventListener("click", () => burstConfetti());
+const anniversary = new Date(CONFIG.anniversaryISO).getTime();
+
+function tickAnniversary() {
+    const now = Date.now();
+    let diff = Math.max(0, now - anniversary); // tiempo transcurrido
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    diff -= days * (1000 * 60 * 60 * 24);
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    diff -= hours * (1000 * 60 * 60);
+
+    const mins = Math.floor(diff / (1000 * 60));
+    diff -= mins * (1000 * 60);
+
+    const secs = Math.floor(diff / 1000);
+
+    cdDays.textContent = String(days);
+    cdHours.textContent = String(hours).padStart(2, "0");
+    cdMins.textContent = String(mins).padStart(2, "0");
+    cdSecs.textContent = String(secs).padStart(2, "0");
+}
+setInterval(tickAnniversary, 1000);
+tickAnniversary();
 
 // ======================
 // Galería
@@ -123,23 +182,23 @@ function renderPhoto(animate = false) {
     }
 }
 
-prevBtn.addEventListener("click", () => {
+prevBtn?.addEventListener("click", () => {
     idx = (idx - 1 + CONFIG.photos.length) % CONFIG.photos.length;
     renderPhoto(true);
 });
 
-nextBtn.addEventListener("click", () => {
+nextBtn?.addEventListener("click", () => {
     idx = (idx + 1) % CONFIG.photos.length;
     renderPhoto(true);
 });
 
 // Swipe en móvil
 let startX = null;
-galleryEl.addEventListener("touchstart", (e) => {
+galleryEl?.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
 }, { passive: true });
 
-galleryEl.addEventListener("touchend", (e) => {
+galleryEl?.addEventListener("touchend", (e) => {
     if (startX === null) return;
     const endX = e.changedTouches[0].clientX;
     const dx = endX - startX;
@@ -152,7 +211,7 @@ galleryEl.addEventListener("touchend", (e) => {
 }, { passive: true });
 
 // ======================
-// Razones con filtros (chips)
+// Razones + chips
 // ======================
 function buildReasons() {
     reasonsGrid.innerHTML = "";
@@ -169,7 +228,6 @@ function buildReasons() {
 
         card.appendChild(h);
         card.appendChild(p);
-
         reasonsGrid.appendChild(card);
     });
 }
@@ -203,32 +261,7 @@ function filterReasons(tag) {
 }
 
 // ======================
-// Secreto
-// ======================
-secretTextEl.textContent = CONFIG.secretText;
-
-unlockBtn.addEventListener("click", () => {
-    const k = (keyInput.value || "").trim().toLowerCase();
-    if (!k) return wiggle(keyInput);
-
-    if (k === CONFIG.secretKey.toLowerCase()) {
-        secretBox.hidden = false;
-        pulse(secretBox);
-        burstConfetti();
-    } else {
-        wiggle(keyInput);
-        msgEl.textContent = "Esa no es… prueba otra 😏";
-        pulse(msgEl);
-    }
-});
-
-// Enter para desbloquear
-keyInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") unlockBtn.click();
-});
-
-// ======================
-// Tema (claro/oscuro) con persistencia
+// Tema (claro/oscuro)
 // ======================
 function setTheme(theme) {
     if (theme === "dark") {
@@ -250,8 +283,7 @@ setTheme(localStorage.getItem("sv_theme") || "light");
 // Música (opcional)
 // ======================
 let audioEnabled = false;
-
-musicBtn.addEventListener("click", async () => {
+musicBtn?.addEventListener("click", async () => {
     try {
         if (!audioEnabled) {
             await audio.play();
@@ -270,38 +302,6 @@ musicBtn.addEventListener("click", async () => {
 });
 
 // ======================
-// Cuenta atrás (opcional)
-// ======================
-if (CONFIG.countdownTo) {
-    cdWrap.hidden = false;
-    const target = new Date(CONFIG.countdownTo).getTime();
-
-    const tick = () => {
-        const now = Date.now();
-        let diff = Math.max(0, target - now);
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        diff -= days * (1000 * 60 * 60 * 24);
-
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        diff -= hours * (1000 * 60 * 60);
-
-        const mins = Math.floor(diff / (1000 * 60));
-        diff -= mins * (1000 * 60);
-
-        const secs = Math.floor(diff / 1000);
-
-        cdDays.textContent = String(days);
-        cdHours.textContent = String(hours).padStart(2, "0");
-        cdMins.textContent = String(mins).padStart(2, "0");
-        cdSecs.textContent = String(secs).padStart(2, "0");
-    };
-
-    tick();
-    setInterval(tick, 1000);
-}
-
-// ======================
 // Reveal on scroll
 // ======================
 const obs = new IntersectionObserver((entries) => {
@@ -310,10 +310,10 @@ const obs = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.12 });
 
-document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+// Nota: solo observamos reveal cuando está desbloqueado (en unlockPage()).
 
 // ======================
-// Canvas corazones flotando (ROJOS)
+// Canvas corazones rojos
 // ======================
 const canvas = document.getElementById("hearts");
 const ctx = canvas.getContext("2d");
@@ -359,7 +359,6 @@ function drawHeart(x, y, size, rot, alpha) {
     ctx.bezierCurveTo(s, -s * 0.2, 0, -s * 0.2, 0, s * 0.35);
     ctx.closePath();
 
-    // Rojo (degradado rojo-rojo)
     const g = ctx.createLinearGradient(-s, -s, s, s);
     g.addColorStop(0, "rgba(220, 38, 38, 1)");
     g.addColorStop(1, "rgba(248, 113, 113, 1)");
@@ -385,13 +384,12 @@ function animateHearts() {
             spawnHeart();
         }
     }
-
     requestAnimationFrame(animateHearts);
 }
 animateHearts();
 
 // ======================
-// Confetti minimalista
+// Confetti
 // ======================
 function burstConfetti() {
     const n = 80;
@@ -420,7 +418,6 @@ function burstConfetti() {
     }
 }
 
-// Confetti CSS inyectado
 const style = document.createElement("style");
 style.textContent = `
 .confetti{
@@ -433,9 +430,7 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// ======================
 // Helpers
-// ======================
 function pulse(el) {
     el.animate(
         [{ transform: "scale(1)" }, { transform: "scale(1.02)" }, { transform: "scale(1)" }],
@@ -449,9 +444,7 @@ function wiggle(el) {
     );
 }
 
-// ======================
-// Init
-// ======================
+// Init de contenido (aunque esté oculto, no pasa nada)
 buildDots();
 renderPhoto(false);
 buildReasons();
