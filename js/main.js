@@ -91,10 +91,10 @@ function tryUnlock() {
     if (!k) return wiggle(keyInput);
 
     if (k === CONFIG.secretKey.toLowerCase()) {
-        lockMsg.textContent = "Correcto 💘";
+        if (lockMsg) lockMsg.textContent = "Correcto 💘";
         unlockPage();
     } else {
-        lockMsg.textContent = "Esa no es… prueba otra 😏";
+        if (lockMsg) lockMsg.textContent = "Esa no es… prueba otra 😏";
         wiggle(keyInput);
     }
 }
