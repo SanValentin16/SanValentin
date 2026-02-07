@@ -94,6 +94,7 @@ function unlockPage() {
     document.body.classList.add("unlocked");
     lockWrap.style.display = "none";
     content.hidden = false;
+    window.scrollTo(0, 0);
 
     burstConfetti();
     // Activar reveal
@@ -367,6 +368,12 @@ const obs = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 
 // Nota: solo observamos reveal cuando está desbloqueado (en unlockPage()).
+
+// ======= Forzar scroll arriba al recargar =======
+window.addEventListener("load", () => {
+    window.scrollTo(0, 0);
+});
+
 
 // ======================
 // Canvas corazones rojos
