@@ -324,26 +324,38 @@ if (toggleThemeBtn) {
 
 
 // ======================
-// Música (opcional)
+// Música
 // ======================
-let audioEnabled = false;
 musicBtn?.addEventListener("click", async () => {
     try {
-        if (!audioEnabled) {
-            await audio.play();
-            audioEnabled = true;
-            musicState.textContent = "Reproduciendo";
-            musicBtn.textContent = "Pausar";
-        } else {
+        // Si está sonando → pausar
+        if (!audio.paused && !audio.ended) {
             audio.pause();
             musicState.textContent = "Pausado";
             musicBtn.textContent = "Reproducir";
+            return;
         }
-    } catch {
-        musicState.textContent = "No se encontró el MP3 (opcional)";
-        audioEnabled = false;
+
+        // Si terminó → volver al inicio
+        if (audio.ended) {
+            audio.currentTime = 0;
+        }
+
+        // Reproducir / continuar
+        await audio.play();
+        musicState.textContent = "Reproduciendo";
+        musicBtn.textContent = "Pausar";
+
+    } catch (e) {
+        musicState.textContent = "No se pudo reproducir";
     }
 });
+
+audio?.addEventListener("ended", () => {
+    musicState.textContent = "Finalizada";
+    musicBtn.textContent = "Reproducir";
+});
+
 
 // ======================
 // Reveal on scroll
