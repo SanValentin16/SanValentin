@@ -10,9 +10,21 @@ const CONFIG = {
     anniversaryISO: "2025-11-14T23:14:00+01:00",
 
     photos: [
-        { src: "assets/img/01.jpg", caption: "Nuestro primer recuerdo ❤️" },
-        { src: "assets/img/02.jpg", caption: "Ese día que no se olvida ✨" },
-        { src: "assets/img/03.jpg", caption: "Contigo todo es mejor, Karla" }
+        {
+            src: "assets/img/01.mp4",
+            type: "video",
+            caption: "Nuestra primera caricia — 29/09/2025 ❤️"
+        },
+        {
+            src: "assets/img/02.jpg",
+            type: "image",
+            caption: "Nuestra primera noche juntos — 01/10/2025 💞"
+        },
+        {
+            src: "assets/img/03.jpg",
+            type: "image",
+            caption: "Nuestra primera cita oficial — 04/12/2025 ✨"
+        }
     ],
 
     reasons: [
@@ -52,7 +64,9 @@ const msgEl = document.getElementById("msg");
 const btnMsg = document.getElementById("btnMsg");
 const btnConfetti = document.getElementById("btnConfetti");
 
-const photoEl = document.getElementById("photo");
+const photoImg = document.getElementById("photoImg");
+const photoVideo = document.getElementById("photoVideo");
+
 const captionEl = document.getElementById("caption");
 const prevBtn = document.getElementById("prev");
 const nextBtn = document.getElementById("next");
@@ -168,18 +182,43 @@ function buildDots() {
 
 function renderPhoto(animate = false) {
     const p = CONFIG.photos[idx];
-    photoEl.src = p.src;
+
+    // Caption
     captionEl.textContent = p.caption;
 
+    // Mostrar vídeo o imagen
+    if (p.type === "video") {
+        photoImg.style.display = "none";
+
+        photoVideo.style.display = "block";
+        if (photoVideo.src !== location.origin + "/" + p.src) {
+            photoVideo.src = p.src;
+        }
+        // Para iPhone: intenta reproducir si ya está permitido
+        photoVideo.currentTime = 0;
+        photoVideo.play().catch(() => { });
+    } else {
+        // Si veníamos de vídeo, lo paramos
+        if (!photoVideo.paused) photoVideo.pause();
+        photoVideo.removeAttribute("src");
+        photoVideo.load();
+        photoVideo.style.display = "none";
+
+        photoImg.style.display = "block";
+        photoImg.src = p.src;
+
+        if (animate) {
+            photoImg.style.transform = "scale(1.06)";
+            setTimeout(() => (photoImg.style.transform = ""), 120);
+        }
+    }
+
+    // Dots
     [...dotsEl.children].forEach((d, i) => {
         d.classList.toggle("active", i === idx);
     });
-
-    if (animate) {
-        photoEl.style.transform = "scale(1.06)";
-        setTimeout(() => (photoEl.style.transform = ""), 120);
-    }
 }
+
 
 prevBtn?.addEventListener("click", () => {
     idx = (idx - 1 + CONFIG.photos.length) % CONFIG.photos.length;

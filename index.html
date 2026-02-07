@@ -77,25 +77,31 @@
         <section class="card reveal">
             <div class="sectionHead">
                 <h2>Nuestros recuerdos</h2>
-                <p>Pequeños momentos que guardo como el tesoro de la historia que estamos por escribir...</p>
+                <p>Pequeños momentos que guardo como el tesoro de la historia que estamos escribiendo...</p>
             </div>
 
             <div class="gallery" id="gallery">
                 <button class="iconBtn nav" id="prev" aria-label="Anterior">←</button>
 
                 <figure class="frame">
-                    <img id="photo" src="assets/img/01.jpg" alt="Foto" />
+                    <!-- IMAGEN -->
+                    <img id="photoImg" alt="Recuerdo" />
+
+                    <!-- VÍDEO -->
+                    <video id="photoVideo" playsinline loop controls></video>
+
                     <figcaption>
-                        <div id="caption" class="caption">Nuestro primer recuerdo ❤️</div>
+                        <div id="caption" class="caption"></div>
                         <div class="dots" id="dots"></div>
                     </figcaption>
                 </figure>
+
 
                 <button class="iconBtn nav" id="next" aria-label="Siguiente">→</button>
             </div>
         </section>
 
-        <!-- MÚSICA (opcional) -->
+        <!-- MÚSICA -->
         <section class="card reveal">
             <div class="sectionHead">
                 <h2>Nuestra canción 🎶</h2>

@@ -350,7 +350,8 @@ body {
     box-shadow: 0 14px 32px rgba(0, 0, 0, .10);
 }
 
-.frame img {
+.frame img,
+.frame video {
     width: 100%;
     display: block;
     aspect-ratio: 4/3;
@@ -359,9 +360,17 @@ body {
     transition: transform .35s ease;
 }
 
-.frame:hover img {
-    transform: scale(1.05)
+/* Hover (en móvil no se nota, en PC sí) */
+.frame:hover img,
+.frame:hover video {
+    transform: scale(1.05);
 }
+
+/* Por defecto el vídeo oculto (lo enseñamos desde JS cuando toque) */
+#photoVideo {
+    display: none;
+}
+
 
 .caption {
     padding: 12px 14px;
