@@ -62,8 +62,6 @@ const galleryEl = document.getElementById("gallery");
 const reasonsGrid = document.getElementById("reasonsGrid");
 const chipsEl = document.getElementById("chips");
 
-const toggleThemeBtn = document.getElementById("toggleTheme");
-
 const cdDays = document.getElementById("cdDays");
 const cdHours = document.getElementById("cdHours");
 const cdMins = document.getElementById("cdMins");
@@ -259,24 +257,6 @@ function filterReasons(tag) {
     });
 }
 
-// ======================
-// Tema (claro/oscuro)
-// ======================
-function setTheme(theme) {
-    if (theme === "dark") {
-        document.documentElement.setAttribute("data-theme", "dark");
-        toggleThemeBtn.textContent = "☀️";
-    } else {
-        document.documentElement.removeAttribute("data-theme");
-        toggleThemeBtn.textContent = "🌙";
-    }
-    localStorage.setItem("sv_theme", theme);
-}
-toggleThemeBtn.addEventListener("click", () => {
-    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-    setTheme(isDark ? "light" : "dark");
-});
-setTheme(localStorage.getItem("sv_theme") || "light");
 
 // ======================
 // Música (opcional)
