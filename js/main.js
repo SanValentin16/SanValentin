@@ -81,7 +81,6 @@ function unlockPage() {
     lockWrap.style.display = "none";
     content.hidden = false;
 
-    localStorage.setItem("sv_unlocked", "1");
     burstConfetti();
     // Activar reveal
     document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
@@ -359,14 +358,16 @@ function drawHeart(x, y, size, rot, alpha) {
     ctx.bezierCurveTo(s, -s * 0.2, 0, -s * 0.2, 0, s * 0.35);
     ctx.closePath();
 
+    // 💎 Corazones turquesa (color favorito de Karla)
     const g = ctx.createLinearGradient(-s, -s, s, s);
-    g.addColorStop(0, "rgba(220, 38, 38, 1)");
-    g.addColorStop(1, "rgba(248, 113, 113, 1)");
+    g.addColorStop(0, "rgba(20, 184, 166, 1)");   // turquesa
+    g.addColorStop(1, "rgba(45, 212, 191, 1)");  // turquesa claro
     ctx.fillStyle = g;
     ctx.fill();
 
     ctx.restore();
 }
+
 
 function animateHearts() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
