@@ -532,3 +532,32 @@ body {
 body.unlocked .lockWrap {
     display: none;
 }
+
+/* ======= Galería simple (recuerdos) ======= */
+.photoGrid {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.photoGrid img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, .12);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.photoGrid img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, .16);
+}
+
+@media (max-width: 720px) {
+    .photoGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
