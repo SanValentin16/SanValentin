@@ -3,7 +3,7 @@
 // ======================
 const CONFIG = {
     // Palabra clave para desbloquear TODA la página (minúsculas)
-    secretKey: "amor",
+    secretKey: "loshdosh14112025kisskiss",
 
     // Aniversario: 14/11/2025 23:14 (España peninsular)
     // Usamos formato ISO con offset +01:00 (CET) para que sea exacto.
