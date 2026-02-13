@@ -272,6 +272,7 @@ galleryEl?.addEventListener("touchend", (e) => {
 // Razones + chips
 // ======================
 function buildReasons() {
+    if (!reasonsGrid) return;   // 👈 si no existe, no hacemos nada
     reasonsGrid.innerHTML = "";
     CONFIG.reasons.forEach(r => {
         const card = document.createElement("div");
@@ -290,7 +291,10 @@ function buildReasons() {
     });
 }
 
+
 function buildChips() {
+    if (!chipsEl) return;   // 👈 si no existe, no hacemos nada
+
     const tags = Array.from(new Set(CONFIG.reasons.map(r => r.tag)));
     const all = ["Todo", ...tags];
 
@@ -310,13 +314,16 @@ function buildChips() {
     });
 }
 
+
 function filterReasons(tag) {
+    if (!reasonsGrid) return;  // 👈 si no existe, salimos
     const cards = [...reasonsGrid.children];
     cards.forEach(c => {
         const ok = tag === "Todo" || c.dataset.tag === tag;
         c.style.display = ok ? "" : "none";
     });
 }
+
 
 
 // ======================
@@ -548,9 +555,12 @@ function wiggle(el) {
 // Init de contenido (aunque esté oculto, no pasa nada)
 buildDots();
 renderPhoto(false);
-buildReasons();
-buildChips();
-filterReasons("Todo");
+
+if (reasonsGrid && chipsEl) {
+    buildReasons();
+    buildChips();
+    filterReasons("Todo");
+}
 
 // ======================
 // Galería 2: grid 2xN
