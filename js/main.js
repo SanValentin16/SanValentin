@@ -11,6 +11,11 @@ const CONFIG = {
 
     photos: [
         {
+            src: "assets/img/00.mp4",
+            type: "video",
+            caption: "Nuestro primer encuentro — 25/09/2025 💙"
+        }
+        {
             src: "assets/img/01.mp4",
             type: "video",
             caption: "Nuestra primera caricia — 29/09/2025 ❤️"
