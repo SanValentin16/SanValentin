@@ -639,7 +639,6 @@ body.unlocked .lockWrap {
     top: -7px;
 }
 
-.recuerdos-subtitulo {
-    margin-bottom: 60px;
-    /* puedes probar 20px, 30px, etc */
+.sectionHead {
+    margin-bottom: 28px;
 }
