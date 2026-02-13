@@ -651,4 +651,5 @@ body.unlocked .lockWrap {
 
 .sectionHead {
     margin-bottom: 28px;
+    justify-content: center;
 }
