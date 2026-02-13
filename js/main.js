@@ -568,6 +568,11 @@ function renderGallery2Grid() {
 
         const img = document.createElement("img");
         img.src = src;
+        img.onerror = () => {
+            console.warn("No carga:", src);
+            item.style.display = "none";
+        };
+
         img.loading = "lazy";
         img.alt = "Foto";
 
@@ -576,5 +581,9 @@ function renderGallery2Grid() {
     });
 }
 
+console.log("gallery2Grid:", document.getElementById("gallery2Grid"));
+console.log("CONFIG.photos2:", CONFIG.photos2);
+
 renderGallery2Grid();
+
 
