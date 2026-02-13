@@ -638,3 +638,8 @@ body.unlocked .lockWrap {
     left: 0;
     top: -7px;
 }
+
+.recuerdos-subtitulo {
+    margin-bottom: 28px;
+    /* puedes probar 20px, 30px, etc */
+}
