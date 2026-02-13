@@ -60,6 +60,9 @@ const CONFIG = {
         "assets/img/07.jpg",
         "assets/img/08.jpg",
         "assets/img/09.jpg",
+        "assets/img/10.jpg",
+        "assets/img/11.jpg",
+        "assets/img/12.jpg",
     ],
 
 };
