@@ -561,3 +561,42 @@ body.unlocked .lockWrap {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* =========================
+   Galería 2 en mosaico 2xN
+   ========================= */
+.gallery2-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.gallery2-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .12);
+    aspect-ratio: 1 / 1;
+    /* cuadraditas, quita esto si prefieres altura libre */
+}
+
+.gallery2-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.01);
+    transition: transform .2s ease;
+}
+
+.gallery2-item:hover img {
+    transform: scale(1.06);
+}
+
+/* Opcional: en pantallas grandes puedes poner 3 o 4 columnas */
+@media (min-width: 900px) {
+    .gallery2-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}

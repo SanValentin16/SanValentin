@@ -3,7 +3,7 @@
 // ======================
 const CONFIG = {
     // Palabra clave para desbloquear TODA la página (minúsculas)
-    secretKey: "loshdosh14112025kisskiss",
+    secretKey: "a",
 
     // Aniversario: 14/11/2025 23:14 (España peninsular)
     // Usamos formato ISO con offset +01:00 (CET) para que sea exacto.
@@ -45,7 +45,17 @@ const CONFIG = {
         "Contigo, todo encaja.",
         "Me gustas en calma y en caos.",
         "Eres mi suerte."
-    ]
+    ],
+
+    photos2: [
+        "assets/img/04.jpg",
+        "assets/img/05.jpg",
+        "assets/img/06.jpg",
+        "assets/img/07.jpg",
+        "assets/img/08.jpg",
+        "assets/img/09.jpg",
+    ],
+
 };
 
 // ======================
@@ -515,3 +525,30 @@ renderPhoto(false);
 buildReasons();
 buildChips();
 filterReasons("Todo");
+
+// ======================
+// Galería 2: grid 2xN
+// ======================
+const gallery2Grid = document.getElementById("gallery2Grid");
+
+function renderGallery2Grid() {
+    if (!gallery2Grid) return;
+
+    gallery2Grid.innerHTML = "";
+
+    CONFIG.photos2.forEach((src) => {
+        const item = document.createElement("div");
+        item.className = "gallery2-item";
+
+        const img = document.createElement("img");
+        img.src = src;
+        img.loading = "lazy";
+        img.alt = "Foto";
+
+        item.appendChild(img);
+        gallery2Grid.appendChild(item);
+    });
+}
+
+renderGallery2Grid();
+
