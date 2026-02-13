@@ -37,14 +37,15 @@ const CONFIG = {
     ],
 
     messages: [
-        "Mi Chiquitilla, eres mi lugar favorito.",
-        "Reina, contigo todo es mejor.",
-        "Karla, gracias por existir 💘",
-        "Te elegiría en todas las vidas.",
-        "Eres mi plan favorito.",
-        "Contigo, todo encaja.",
-        "Me gustas en calma y en caos.",
-        "Eres mi suerte."
+        "Chiquitilla, eres mi persona favorita.",
+        "Contigo todo se vuelve fácil.",
+        "Reina, gracias por quererme siempre.",
+        "Te voy a amar por siempre.",
+        "Siento que contigo todo es posible.",
+        "Contigo, todo se siente como si estuviera viviendo un sueño.",
+        "Gracias por ser la niña de mis ojos.",
+        "Eres mi TODO.",
+        "Cuando nuestras miradas se cruzan, siento que no necesito nada más."
     ],
 
     photos2: [
@@ -464,34 +465,51 @@ function animateHearts() {
 animateHearts();
 
 // ======================
-// Confetti
+// Sorpresa: lluvia de corazones (azul clarito + rojo)
 // ======================
 function burstConfetti() {
-    const n = 80;
+    // Mantengo el nombre para que no tengas que cambiar llamadas en el resto del código
+    const colors = ["#7dd3fc", "#fb7185"]; // azul clarito / rojo
+    const n = 70;
+
     for (let i = 0; i < n; i++) {
         const el = document.createElement("div");
-        el.className = "confetti";
+        el.className = "fall-heart";
+
+        // Color aleatorio (azul o rojo)
+        const c = colors[Math.floor(Math.random() * colors.length)];
+        el.style.setProperty("--c", c);
+
+        // Posición/tamaño
         el.style.left = (Math.random() * 100) + "vw";
-        el.style.top = "-10px";
-        el.style.transform = `rotate(${Math.random() * 360}deg)`;
-        el.style.opacity = "0.9";
-        el.style.width = (6 + Math.random() * 6) + "px";
-        el.style.height = (10 + Math.random() * 10) + "px";
-        el.style.background = `hsl(${Math.floor(Math.random() * 360)}, 90%, 65%)`;
+        const size = 10 + Math.random() * 14;
+        el.style.width = size + "px";
+        el.style.height = size + "px";
+
+        // Opacidad y giro inicial
+        el.style.opacity = (0.65 + Math.random() * 0.35).toFixed(2);
+        const rot = (Math.random() * 80 - 40); // -40..40
+        el.style.transform = `rotate(${45 + rot}deg)`;
+
         document.body.appendChild(el);
 
-        const dx = (Math.random() - 0.5) * 140;
-        const dy = 100 + Math.random() * 220;
-        const dur = 900 + Math.random() * 900;
+        // Movimiento
+        const dx = (Math.random() - 0.5) * 120; // deriva horizontal
+        const dy = 110 + Math.random() * 120;   // cae
+        const dur = 1400 + Math.random() * 1400;
 
-        el.animate([
-            { transform: el.style.transform, translate: "0 0" },
-            { transform: `rotate(${Math.random() * 720}deg)`, translate: `${dx}px ${dy}vh` }
-        ], { duration: dur, easing: "cubic-bezier(.2,.8,.2,1)" });
+        el.animate(
+            [
+                { transform: el.style.transform + " translate(0, 0)", opacity: el.style.opacity },
+                { transform: `rotate(${45 + rot + (Math.random() * 120 - 60)}deg) translate(${dx}px, ${dy}vh)`, opacity: 0 }
+            ],
+            { duration: dur, easing: "cubic-bezier(.2,.8,.2,1)" }
+        );
 
         setTimeout(() => el.remove(), dur + 50);
     }
 }
+
 
 const style = document.createElement("style");
 style.textContent = `

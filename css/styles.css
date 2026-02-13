@@ -600,3 +600,41 @@ body.unlocked .lockWrap {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
+
+/* ======================
+   Lluvia de corazones
+   ====================== */
+.fall-heart {
+    position: fixed;
+    top: -30px;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    background: var(--c, #fb7185);
+    transform: rotate(45deg);
+    border-radius: 2px;
+    z-index: 9999;
+    pointer-events: none;
+    will-change: transform;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .12);
+}
+
+.fall-heart::before,
+.fall-heart::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: var(--c, #fb7185);
+    border-radius: 50%;
+}
+
+.fall-heart::before {
+    left: -7px;
+    top: 0;
+}
+
+.fall-heart::after {
+    left: 0;
+    top: -7px;
+}
