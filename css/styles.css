@@ -449,6 +449,16 @@ body {
     gap: 10px;
     flex-wrap: wrap;
     margin-top: 12px;
+
+
+    flex-direction: column;
+    /* botón arriba, texto debajo */
+
+    justify-content: center;
+
+    text-align: center;
+
+
 }
 
 .countdown {
